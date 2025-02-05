@@ -1,12 +1,12 @@
 import express from "express";
 import Message from "../models/message.models.js";
 import path from "node:path";
-const fs = require('fs')
+//const fs = require('fs')
 
 const router = express.Router();
 
-import { dirname } from './message.json'
-const messagePath = path.join(__dirname, "message.json");
+import message from './message.json' assert { type: 'json' };
+
 
 //read ALL
 router.get("/", async (req, res) => {
