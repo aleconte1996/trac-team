@@ -1,20 +1,16 @@
 import express from "express";
 import Message from "../models/message.models.js";
-import path from "node:path";
 //const fs = require('fs')
 
 const router = express.Router();
 
-import message from './message.json' assert { type: 'json' };
-
-
 //read ALL
 router.get("/", async (req, res) => {
   try {
-    const messages = await messagePath.find(); //{ room: req.params.roomId }).populate("user","firstName lastName");
+    const messages = await messagePath.find();
     res.json(messages);
   } catch (error) {
-    res.json({ error: "ERROR" });
+    res.json({ error: "Failed to read messages" });
   }
 });
 
@@ -25,7 +21,7 @@ router.get("/:id", async (req, res) => {
     if (!message) return res.json({ error: "Message not found" });
     res.json(message);
   } catch (error) {
-    res.json({ error: "Failed to fetch message" });
+    res.json({ error: "Failed to get message" });
   }
 });
 
@@ -34,16 +30,22 @@ router.post("/", async (req, res) => {
   try {
     const { user, room, body } = req.body;
 
-    if (!user || !room || !body) {
-      return res.json({ error: "All fields are required." });
-    }
+    if (!user) return res.json({ error: "User is required" });
+    if (!room) return res.json({ error: "Room is required" });
+    if (!body) return res.json({ error: "Text content is required" });
 
-    const newMessage = new Message({ user, room, body });
+    //timestamp on messages. ID is automatically assigned when using mongo
+    const newMessage = new Message({
+      user,
+      room,
+      body,
+      when: new Date().toISOString(), // Ensure timestamp consistency
+    });
     const savedMessage = await newMessage.save();
-
     res.json(savedMessage);
+
   } catch (error) {
-    console.error("Error saving message:", error);
+    console.error("Error creating message:", error);
     res.json({ error: "Failed to create message" });
   }
 });
