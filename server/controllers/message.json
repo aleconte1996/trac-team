@@ -1,0 +1,30 @@
+[
+  {
+    "id": "1739236066549",
+    "user": "User1",
+    "room": "Room1",
+    "body": "Post test message",
+    "when": "2025-02-11T01:07:46.549Z"
+  },
+  {
+    "id": "1739236602338",
+    "user": "User3",
+    "room": "Room3",
+    "body": "Post test message",
+    "when": "2025-02-11T01:16:42.338Z"
+  },
+  {
+    "id": "1739236607657",
+    "user": "User4",
+    "room": "Room4",
+    "body": "Post test message",
+    "when": "2025-02-11T01:16:47.657Z"
+  },
+  {
+    "id": "1739236616333",
+    "user": "User5",
+    "room": "Room5",
+    "body": "Post test message",
+    "when": "2025-02-11T01:16:56.333Z"
+  }
+]
