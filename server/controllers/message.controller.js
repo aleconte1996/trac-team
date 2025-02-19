@@ -1,11 +1,12 @@
 import express from 'express';
 import Message from '../models/message.models.js';
+import { checkAdmin } from '../middleware/checkAdmin.js';
 
 const router = express.Router();
 
 // Display all messages within a room endpoint
 // http://localhost:3000/api/messages/:roomId
-router.get('/:roomId', async (req, res) => {
+router.get('/:messageId', async (req, res) => {
   try {
     const messages = await Message.find({ room: req.params.roomId }).populate('user', 'firstName lastName');  // Find all messages in the room and populate the user field with the first and last name
     res.json(messages); // Return the messages
@@ -29,7 +30,7 @@ router.post('/', async (req, res) => {
 
 // Update a message within a room endpoint
 // http://localhost:3000/api/messages/:messageId
-router.put('/:messageId', async (req, res) => {
+router.put('/:messageId',checkAdmin ,async (req, res) => { //
   try {
     const { body } = req.body;  // Get the body from the request body 
     const message = await Message.findByIdAndUpdate(req.params.messageId, { body }, { new: true }); // Find the message by ID and update the body field 
@@ -44,7 +45,7 @@ router.put('/:messageId', async (req, res) => {
 
 // Delete a message within a room endpoint
 // http://localhost:3000/api/messages/:messageId
-router.delete('/:messageId', async (req, res) => {
+router.delete('/:messageId',checkAdmin, async (req, res) => {
   try {
     const message = await Message.findByIdAndDelete(req.params.messageId);  // Find the message by ID and delete it from the database
     if (!message) {

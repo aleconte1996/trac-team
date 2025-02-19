@@ -1,5 +1,6 @@
 import express from 'express';
 import Room from '../models/room.models.js';
+import { checkAdmin } from '../middleware/checkAdmin.js';
 
 const router = express.Router();
 
@@ -29,7 +30,7 @@ router.get('/', async (req, res) => {
 
 // Update room endpoint
 // http://localhost:3000/api/rooms/"id"
-router.put('/:id', async (req, res) => {
+router.put('/:id', checkAdmin ,async (req, res) => {
   try {
     const { name, description, addedUsers } = req.body; // Get the name, description, and addedUsers from the request body
     const room = await Room.findByIdAndUpdate(  // Find the room by ID and update the name, description, and addedUsers fields
@@ -48,7 +49,7 @@ router.put('/:id', async (req, res) => {
 
 // Delete room endpoint
 // http://localhost:3000/api/rooms/"id"
-router.delete('/:id', async (req, res) => {
+router.delete('/:id',checkAdmin, async (req, res) => {
   try {
     const room = await Room.findByIdAndDelete(req.params.id); // Find the room by ID and delete it from the database
     if (!room) {
