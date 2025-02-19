@@ -4,8 +4,6 @@ import Message from "../models/message.models.js";
 
 const router = express.Router();
 
-//import message from './message.json' assert { type: 'json' };
-
 
 //read ALL
 router.get("/", async (req, res) => {
@@ -46,6 +44,7 @@ router.post("/", async (req, res) => {
     });
     const savedMessage = await newMessage.save();
     res.json(savedMessage);
+
   } catch (error) {
     console.error("Error creating message:", error);
     res.json({ error: "Failed to create message" });
