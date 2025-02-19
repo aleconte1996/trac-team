@@ -1,91 +1,68 @@
-import express from "express";
-import Message from "../models/message.models.js";
-//const fs = require('fs')
+import express from 'express';
+import Message from '../models/message.models.js';
 
 const router = express.Router();
 
-
-//read ALL
-router.get("/", async (req, res) => {
+// Display all messages within a room endpoint
+// http://localhost:3000/api/messages/:roomId
+router.get('/:roomId', async (req, res) => {
   try {
-    const messages = await messagePath.find();
-    res.json(messages);
+    const messages = await Message.find({ room: req.params.roomId }).populate('user', 'firstName lastName');  // Find all messages in the room and populate the user field with the first and last name
+    res.json(messages); // Return the messages
   } catch (error) {
-    res.json({ error: "Failed to read messages" });
+    res.status(400).json({ error: error.message });
   }
 });
 
-//read single message by id
-router.get("/:id", async (req, res) => {
+// Create a message within a room endpoint
+// http://localhost:3000/api/messages/:roomId
+router.post('/', async (req, res) => {
   try {
-    const message = await Message.findById(req.params.id);
-    if (!message) return res.json({ error: "Message not found" });
-    res.json(message);
+    const { user, body } = req.body;  // Get the user and body from the request body
+    const message = new Message({ user, room: req.params.roomId, body }); // Create a new message with the user, room, and body fields  
+    await message.save(); // Save the message to the database 
+    res.status(201).json({ message: 'Message created successfully' });  // Return a success message 
   } catch (error) {
-    res.json({ error: "Failed to get message" });
+    res.status(400).json({ error: error.message });
   }
 });
 
-//create
-router.post("/", async (req, res) => {
+// Update a message within a room endpoint
+// http://localhost:3000/api/messages/:messageId
+router.put('/:messageId', async (req, res) => {
   try {
-    const { user, room, body } = req.body;
-
-    if (!user) return res.json({ error: "User is required" });
-    if (!room) return res.json({ error: "Room is required" });
-    if (!body) return res.json({ error: "Text content is required" });
-
-    //timestamp on messages. ID is automatically assigned when using mongo
-    const newMessage = new Message({
-      user,
-      room,
-      body,
-      when: new Date().toISOString(), // Ensure timestamp consistency
-    });
-    const savedMessage = await newMessage.save();
-    res.json(savedMessage);
-
+    const { body } = req.body;  // Get the body from the request body 
+    const message = await Message.findByIdAndUpdate(req.params.messageId, { body }, { new: true }); // Find the message by ID and update the body field 
+    if (!message) { // If the message is not found
+      return res.status(404).json({ error: 'Message not found' });
+    }
+    res.json({ message: 'Message updated successfully' });
   } catch (error) {
-    console.error("Error creating message:", error);
-    res.json({ error: "Failed to create message" });
+    res.status(400).json({ error: error.message });
   }
 });
 
-//update
-router.put("/:id", async (req, res) => {
+// Delete a message within a room endpoint
+// http://localhost:3000/api/messages/:messageId
+router.delete('/:messageId', async (req, res) => {
   try {
-    const { id } = req.params;
-    const { user, room, body } = req.body;
-
-    if (!user) return res.json({ error: "User is required" });
-    if (!room) return res.json({ error: "Room is required" });
-    if (!body) return res.json({ error: "Text content is required" });
-
-    const updatedMessage = await Message.findByIdAndUpdate(
-      id,
-      { user, room, body },
-      { new: true }
-    );
-
-    if (!updatedMessage) return res.json({ error: "Message not found" });
-
-    res.json(updatedMessage);
-  } catch (err) {
-    res.json({ error: "Failed to update message" });
+    const message = await Message.findByIdAndDelete(req.params.messageId);  // Find the message by ID and delete it from the database
+    if (!message) {
+      return res.status(404).json({ error: 'Message not found' });
+    }
+    res.json({ message: 'Message deleted successfully' });
+  } catch (error) {
+    res.status(400).json({ error: error.message });
   }
 });
-
-//delete
-router.delete("/:id", async (req, res) => {
+// get all messages
+// http://localhost:3000/api/messages
+router.get('/', async (req, res) => {
   try {
-    const { id } = req.params;
-
-    const deletedMessage = await Message.findByIdAndDelete(id);
-    if (!deletedMessage) return res.json({ error: "Message not found." });
-
-    res.json({ message: "Message deleted" });
-  } catch (err) {
-    res.json({ error: "Failed to delete message" });
+    const messages = await Message.find().populate('user', 'firstName lastName'); // Find all messages and populate the user field with the first and last name
+    res.json(messages); // Return the messages
+  } catch (error) {
+    res.status(400).json({ error: error.message });
   }
 });
 
