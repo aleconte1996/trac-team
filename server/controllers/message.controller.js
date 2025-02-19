@@ -4,6 +4,7 @@ import Message from "../models/message.models.js";
 
 const router = express.Router();
 
+
 //read ALL
 router.get("/", async (req, res) => {
   try {
