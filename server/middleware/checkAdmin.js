@@ -5,12 +5,15 @@ const JWT_SECRET = process.env.JWT_SECRET || 'your_jwt_secret'; // Set the JWT s
 export const checkAdmin = (req, res, next) => { // Middleware to check if the user is an admin
   const authHeader = req.headers['authorization'];  // Get the authorization header
   const token = authHeader && authHeader.split(' ')[1]; // Get the token from the authorization header  
+console.log('authHeader')
+  // console.log('line 9', token)
 
   if (!token) {
     return res.status(401).json({ error: 'Access denied. No token provided.' });
   }
 
   try {
+    // console.log("line 16")
     const decoded = jwt.verify(token, JWT_SECRET);  // Verify the token with the JWT secret by decoding it 
     console.log('Decoded token:', decoded); // Debugging: Log the entire decoded token
     if (decoded.role !== 'admin') {

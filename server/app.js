@@ -18,7 +18,7 @@ mongoose
   })
   .catch((err) => {
     console.error("MongoDB connection error:", err);
-  });
+  }); 
 
 // Middleware to parse JSON requests
 app.use(express.json());  
