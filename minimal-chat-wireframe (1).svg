@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600">
+  <!-- Background -->
+  <rect width="800" height="600" fill="#ffffff"/>
+  
+  <!-- Main Container -->
+  <rect x="50" y="50" width="700" height="500" rx="0" fill="#ffffff" stroke="#000000" stroke-width="2"/>
+  
+  <!-- Header Section -->
+  <rect x="50" y="50" width="700" height="50" fill="#f0f0f0" stroke="#000000" stroke-width="2"/>
+  <text x="80" y="80" font-family="Arial" font-size="18" fill="#000000">Chat</text>
+  
+  <!-- Sidebar -->
+  <rect x="50" y="100" width="200" height="450" fill="#ffffff" stroke="#000000" stroke-width="1"/>
+  
+  <!-- Sidebar Header -->
+  <rect x="50" y="100" width="200" height="40" fill="#f0f0f0" stroke="#000000" stroke-width="1"/>
+  <text x="70" y="125" font-family="Arial" font-size="14" fill="#000000">Contacts</text>
+  
+  <!-- Contact List -->
+  <rect x="50" y="140" width="200" height="50" fill="#ffffff" stroke="#e0e0e0" stroke-width="1"/>
+  <circle cx="80" cy="165" r="12" fill="#e0e0e0" stroke="#000000" stroke-width="1"/>
+  <text x="110" y="170" font-family="Arial" font-size="14" fill="#000000">User 1</text>
+  
+  <rect x="50" y="190" width="200" height="50" fill="#f0f0f0" stroke="#e0e0e0" stroke-width="1"/>
+  <circle cx="80" cy="215" r="12" fill="#e0e0e0" stroke="#000000" stroke-width="1"/>
+  <text x="110" y="220" font-family="Arial" font-size="14" fill="#000000">User 2</text>
+  
+  <rect x="50" y="240" width="200" height="50" fill="#ffffff" stroke="#e0e0e0" stroke-width="1"/>
+  <circle cx="80" cy="265" r="12" fill="#e0e0e0" stroke="#000000" stroke-width="1"/>
+  <text x="110" y="270" font-family="Arial" font-size="14" fill="#000000">User 3</text>
+  
+  <!-- Chat Area -->
+  <rect x="250" y="100" width="500" height="450" fill="#ffffff" stroke="#000000" stroke-width="1"/>
+  
+  <!-- Chat Header -->
+  <rect x="250" y="100" width="500" height="40" fill="#f0f0f0" stroke="#000000" stroke-width="1"/>
+  <circle cx="280" cy="120" r="12" fill="#e0e0e0" stroke="#000000" stroke-width="1"/>
+  <text x="300" y="125" font-family="Arial" font-size="14" fill="#000000">User 2</text>
+  
+  <!-- Messages Area -->
+  <rect x="250" y="140" width="500" height="360" fill="#ffffff"/>
+  
+  <!-- Message Bubbles -->
+  <rect x="270" y="160" width="250" height="40" rx="0" fill="#f0f0f0" stroke="#d0d0d0" stroke-width="1"/>
+  <text x="285" y="185" font-family="Arial" font-size="14" fill="#000000">Hello! How's your project coming along?</text>
+  
+  <rect x="450" y="220" width="280" height="40" rx="0" fill="#f0f0f0" stroke="#d0d0d0" stroke-width="1"/>
+  <text x="465" y="245" font-family="Arial" font-size="14" fill="#000000">Working on the frontend design now.</text>
+  
+  <rect x="270" y="280" width="300" height="40" rx="0" fill="#f0f0f0" stroke="#d0d0d0" stroke-width="1"/>
+  <text x="285" y="305" font-family="Arial" font-size="14" fill="#000000">Let me know if you need any help with it.</text>
+  
+  <!-- Input Area -->
+  <rect x="250" y="500" width="500" height="50" fill="#ffffff" stroke="#000000" stroke-width="1"/>
+  <rect x="270" y="510" width="400" height="30" rx="0" fill="#ffffff" stroke="#000000" stroke-width="1"/>
+  <text x="285" y="530" font-family="Arial" font-size="14" fill="#a0a0a0">Type a message...</text>
+  
+  <!-- Send Button -->
+  <rect x="680" y="510" width="50" height="30" rx="0" fill="#e0e0e0" stroke="#000000" stroke-width="1"/>
+  <text x="695" y="530" font-family="Arial" font-size="14" fill="#000000">Send</text>
+</svg>
